@@ -1,0 +1,37 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root{
+  --accent-coral:#f87272;
+  --accent-cyan:#70f3f8;
+  --accent-violet:#d881f8;
+  --accent-clr:var(--accent-coral)
+}
+
+@layer base {
+  @font-face {
+    font-family: "Kumbh Sans";
+    font-weight: 700;
+    src: url(/assets/fonts/KumbhSans-Bold.ttf) format("ttf");
+  }
+  @font-face {
+    font-family: "Roboto Slab";
+    font-weight: 700;
+    src: url(/assets/fonts/RobotoSlab-Bold.ttf) format("ttf");
+  }
+  @font-face {
+    font-family: "Space Mono";
+    font-weight: 400;
+    src: url(/assets/fonts/SpaceMono-Regular.ttf) format("ttf");
+  }
+  @font-face {
+    font-family: "Space Mono";
+    font-weight: 700;
+    src: url(/assets/fonts/SpaceMono-Bold.ttf) format("ttf");
+  }
+  body {
+    @apply bg-darkestblue font-kumbh-sans;
+  }
+  
+}

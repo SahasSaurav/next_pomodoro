@@ -1,13 +1,16 @@
+import { useContext } from "react";
+import { TimerContext } from "../context/TimerContext";
 import SettingForm from "./SettingForm";
 
 const Setting = () => {
+  const {closeModal}=useContext(TimerContext);
   return (
     <>
       <header className="flex flex-row jusitify-between p-6 -mx-8 border-b-2 border-gray">
         <h2 className="p-0 text-2xl font-semibold">Settings</h2>
-        <button
+        <button onClick={closeModal}
           aria-label="close modal"
-          className="ml-auto rounded-md p-1 focus:outline-none focus:ring-2  "
+          className="ml-auto rounded-md p-1 focus:outline-none focus:ring-2 "
         >
           <svg
             className="rounded-full fill-current text-darkblue  hover:text-coral  transition-transform duration transform scale-125 hover:scale-150 "

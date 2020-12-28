@@ -2,12 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-:root{
-  --accent-coral:#f87272;
-  --accent-cyan:#70f3f8;
-  --accent-violet:#d881f8;
-  --accent-clr:var(--accent-coral)
-}
+
 
 @layer base {
   @font-face {
@@ -31,7 +26,23 @@
     src: url(/assets/fonts/SpaceMono-Bold.ttf) format("ttf");
   }
   body {
-    @apply bg-darkestblue font-kumbh-sans;
+    @apply bg-darkestblue  font-kumbh-sans;
   }
   
+}
+
+
+:root{
+  --accent-coral:#f87272;
+  --accent-cyan:#70f3f8;
+  --accent-violet:#d881f8;
+  --accent-clr:var(--accent-coral);
+
+  --font-roboto-slab:'Roboto Slab';
+  --font-space-mono:'Space Mono';
+  --accent-font:var(--font-kumbh-sans); 
+  --font-kumbh-sans:@apply font-kumbh-sans;
+}
+.active{
+  background-color: var(--accent-clr);
 }

@@ -1,6 +1,11 @@
+import {useContext} from 'react'
+import { TimerContext } from "../context/TimerContext";
+
 const SettingButton = () => {
+  const {openModal}=useContext(TimerContext)
+
   return (
-    <button className="mx-auto mb-8 block p-2 rounded-full hover:bg-darkestblue focus:outline-none focus:ring-4 ring-lightblue ring-opacity-40">
+    <button onClick={openModal} className="mx-auto mb-8 block p-2 rounded-full hover:bg-darkestblue focus:outline-none focus:ring-4 ring-lightblue ring-opacity-40">
       <svg
         className="transitions-color duration-200 ease-in-out  fill-current text-gray hover:text-lightblue "
         xmlns="http://www.w3.org/2000/svg"

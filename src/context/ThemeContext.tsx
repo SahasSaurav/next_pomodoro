@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 import themeReducer from "../reducer/themeReducer";
 
 const initalState = {
-  accent:getComputedStyle(document.documentElement).getPropertyValue('--accent-clr'),
+  accent:'coral',
   font:document.body.style.fontFamily,
 };
 
@@ -12,7 +12,7 @@ const ThemeProvider = ({ children }) => {
   const [themeState, themeDispatch] = useReducer(themeReducer, initalState);
 
   return (
-    <ThemeContext.Provider value={{ app: "hello" }}>
+    <ThemeContext.Provider value={{...themeState  }}>
       {children}
     </ThemeContext.Provider>
   );

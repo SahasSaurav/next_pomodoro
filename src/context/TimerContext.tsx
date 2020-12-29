@@ -17,7 +17,7 @@ const timerInitialState = {
   pomodoro: 25,
   shortBreak: 5,
   longBreak: 15,
-  refence:null,
+  reference:null,
 };
 
 export const TimerContext = createContext(null);
@@ -27,6 +27,10 @@ const TimerProvider: React.FC<ChildrenProps> = ({ children }) => {
     timerReducer,
     timerInitialState
   );
+  
+  useEffect(()=>{
+    // timerState
+  },[timerState])
 
   const openModal = () => {
     timerDispatch({ type: "OPEN-MODAL" });
@@ -52,9 +56,9 @@ const TimerProvider: React.FC<ChildrenProps> = ({ children }) => {
     });
   };
 
-  // const startPauseTimer=()=>{
-  //   timerDispatch({type:'START-STOP-COUNTDOWN'})
-  // }
+  const startPauseTimer=()=>{
+    timerDispatch({type:'START-STOP-COUNTDOWN'})
+  }
 
   return (
     <TimerContext.Provider
@@ -65,7 +69,7 @@ const TimerProvider: React.FC<ChildrenProps> = ({ children }) => {
         toggleTimer,
         toggleFilterMode,
         timerSetting,
-        // startPauseTimer
+        startPauseTimer
       }}
     >
       {children}

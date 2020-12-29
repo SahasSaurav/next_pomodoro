@@ -1,6 +1,3 @@
-import { clearInterval } from 'timers';
-import { defaultTime } from '../context/TimerContext';
-
 const timerReducer = (state, action) => {
   switch (action.type) {
     case 'OPEN-MODAL':
@@ -10,10 +7,9 @@ const timerReducer = (state, action) => {
     case 'TOGGLE-TIMER':
       return { ...state, timerRunning: !action.payload }
     case 'TOGGLE-MODE':
-      const {timerRunning}=state
-      return { ...state, activeMenu: action.payload, time: state[action.payload],currentTime:state[action.payload]*60 }
+      return { ...state, timerRunning: false, activeMenu: action.payload, time: state[action.payload], currentTime: state[action.payload] * 60 }
     case 'TIMER-FORM-SUBMIT':
-      let timing=null
+      let timing = null
       const { activeMenu } = action.payload
       if (activeMenu === 'pomodoro') {
         timing = action.payload.pomodoro
@@ -24,18 +20,21 @@ const timerReducer = (state, action) => {
       } else {
         timing = state.time
       }
-      return { ...state, isOpen: false, pomodoro: action.payload.pomodoro, shortBreak: action.payload.shortBreak, longBreak: action.payload.longBreak, time:timing ,currentTime:timing*60 }
+      return { ...state, isOpen: false, pomodoro: action.payload.pomodoro, shortBreak: action.payload.shortBreak, longBreak: action.payload.longBreak, time: timing, currentTime: timing * 60 }
     case 'START-STOP-COUNTDOWN':
-      if (state.timerRunning) {
-        clearInterval(state.reference)
-      } else {
-        state.reference = setInterval(() => {
+      if (state.timerRunning === true) {
+        state.reference = window.setInterval(() => {
+          if (state.currentTime===0) {
+            window.clearInterval(state.reference)
+          }
           const { currentTime } = state
+          console.log(currentTime)
+          console.log(state.reference)
           state.currentTime = currentTime - 1
         }, 1000)
-        if (state.currentTime === 0) {
-          clearInterval(state.refernce)
-        }
+        
+      } else {
+        window.clearInterval(state.reference)
       }
 
       return state;

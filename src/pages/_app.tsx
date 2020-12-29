@@ -4,11 +4,11 @@ import "../styles/tailwind.css";
 
 const MyApp=({ Component, pageProps })=> {
   return (
-    // <ThemeProvider>
+    <ThemeProvider>
       <TimerProvider>
         <Component {...pageProps} />
       </TimerProvider>
-    // </ThemeProvider>
+     </ThemeProvider>
   );
 }
 

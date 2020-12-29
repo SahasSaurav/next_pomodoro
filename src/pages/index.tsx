@@ -28,7 +28,6 @@ const Home:React.FC = () => {
        <Modal>
          <Setting />
        </Modal>
-
       </div>
     </>
   );

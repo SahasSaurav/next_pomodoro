@@ -33,16 +33,16 @@
 
 
 :root{
-  --accent-coral:#f87272;
-  --accent-cyan:#70f3f8;
-  --accent-violet:#d881f8;
-  --accent-clr:var(--accent-coral);
+  --accent_coral:#f87272;
+  --accent_cyan:#70f3f8;
+  --accent_violet:#d881f8;
+  --accent_clr:var(--accent_coral);
 
-  --font-roboto-slab:'Roboto Slab';
-  --font-space-mono:'Space Mono';
-  --accent-font:var(--font-kumbh-sans); 
-  --font-kumbh-sans:@apply font-kumbh-sans;
+  --font_roboto_slab:'Roboto Slab';
+  --font_space_mono:'Space Mono';
+  --accent_font:var(--font_kumbh_sans); 
+  --font_kumbh_sans:@apply font-kumbh-sans;
 }
 .active{
-  background-color: var(--accent-clr);
+  background-color: var(--accent_clr);
 }

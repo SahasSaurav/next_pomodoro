@@ -1,9 +1,9 @@
 const convertInMinute: (time: number) => number = (time) => {
-  return Math.floor(time / 60)
+  return Math.floor(time %60 )
 }
 
 const convertInSecond: (time: number) => number = (time) => {
-  return time % 60
+  return Math.floor(time / 60)
 }
 
 const formatTime: (time: number) => string = (time) => {

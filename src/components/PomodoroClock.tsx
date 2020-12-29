@@ -1,13 +1,34 @@
-import { useContext, useEffect } from "react";
+import { useContext, useState,useEffect } from "react";
 import { TimerContext } from "../context/TimerContext";
 import { convertInMinute, convertInSecond, formatTime } from "../utils/time";
 
 const PomodoroClock = () => {
-  const {time,currentTime,start,toggleTimer,startPauseTimer} =useContext(TimerContext);
   
+  const {time,timerRunning,toggleTimer,startPauseTimer,currentTime} =useContext(TimerContext);
+ 
+
+
+  // const [countdownTime,setCounttdownTime]=useState<number>(time)
+  // const [currentTime,setCurentTime]=useState<number>(countdownTime*60)
+
+  // const [refernce,setRefernce]=useState(null)
+  
+ 
+  // const  startPauseTimer=()=>{
+  //   if(timerRunning){
+  //     clearInterval(refernce)
+  //   }else{
+  //     const id=setInterval(()=>{
+  //       setCurentTime(prevState=> prevState-1)
+  //     },1000)
+  //     setRefernce(id)
+  //   }
+  // }
+  
+
   const onClickHandler=()=>{
-   toggleTimer(start)
-  //  startPauseTimer()
+   toggleTimer(timerRunning)
+   startPauseTimer()
   }
   return (
     <button onClick={onClickHandler}
@@ -38,7 +59,7 @@ const PomodoroClock = () => {
           strokeDasharray="276.5 276.5"
           strokeLinecap="round"
           strokeWidth="3"
-           strokeDashoffset={276.5}
+           strokeDashoffset={276.5-(((currentTime/60)/time)*276.5)}
           //  "276.5 - durationToPercents(timerDuration, settings.durations[activeAction]) / 100 * 276.5"
         ></circle>
         <text
@@ -50,7 +71,7 @@ const PomodoroClock = () => {
           y="50%"
           dy=".3em"
         >
-          {formatTime(convertInMinute(time))}:{formatTime(convertInSecond(time))}
+          {formatTime(convertInMinute(currentTime))}:{formatTime(convertInSecond(currentTime))}
         </text>
         <text
           className="font-bold tracking-widest uppercase fill-current"
@@ -60,7 +81,7 @@ const PomodoroClock = () => {
           x="50%"
           y="70%"
         >
-         {start?'PAUSE':'START'}
+         {timerRunning?'PAUSE':'START'}
         </text>
       </svg>
     </button>

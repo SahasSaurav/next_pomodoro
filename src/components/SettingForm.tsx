@@ -7,14 +7,14 @@ import { TimerContext } from "../context/TimerContext";
 import { ThemeContext } from "../context/ThemeContext";
 
 const SettingForm = () => {
-  const { pomodoro, shortBreak, longBreak, timerSetting, active } = useContext(TimerContext);
+  const { pomodoro, shortBreak, longBreak, timerSetting, activeMenu } = useContext(TimerContext);
   const {changeAccentColor,changeAccentFont} =useContext(ThemeContext)
   const [selectedColor, setSelectedColor] = useState("--accent_coral");
   const [selectedFont, setSelectedFont] = useState("--font_kumbh_sans");
-  const [pomoTime, setPomoTime] = useState(pomodoro??25);
-  const [shortTime, setShortTime] = useState(shortBreak??5);
+  const [pomoTime, setPomoTime] = useState(pomodoro);
+  const [shortTime, setShortTime] = useState(shortBreak);
 
-  const [longTime, setLongTime] = useState(longBreak??15);
+  const [longTime, setLongTime] = useState(longBreak);
   const fontTypes = [
     "--font_kumbh_sans",
     "--font_roboto_slab",
@@ -24,7 +24,7 @@ const SettingForm = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    timerSetting(pomoTime, shortTime, longTime,active);
+    timerSetting(pomoTime, shortTime, longTime,activeMenu);
     changeAccentColor(selectedColor)
     changeAccentFont(selectedFont)
   };
@@ -49,7 +49,9 @@ const SettingForm = () => {
               setValue={setLongTime}
             />
           </div>
-          {((pomoTime || shortTime || longTime) > 59 ||(pomoTime || shortTime || longTime) <1) && <InputErrorMsg />}
+          {(pomoTime || shortTime || longTime) > 59 && <InputErrorMsg />}
+          {(pomoTime || shortTime || longTime) < 1 && <InputErrorMsg />}
+
         </div>
 
         <div className="flex items-center justify-between py-4">

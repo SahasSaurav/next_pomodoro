@@ -10,12 +10,14 @@ export const defaultTime = {
 
 const timerInitialState = {
   isOpen: false,
-  start: false,
-  active: "pomodoro",
+  timerRunning: false,
+  activeMenu: "pomodoro",
   time: defaultTime.pomodoro, // in second, 
+  currentTime:defaultTime.pomodoro*60,
   pomodoro: 25,
   shortBreak: 5,
   longBreak: 15,
+  refence:null,
 };
 
 export const TimerContext = createContext(null);
@@ -42,17 +44,17 @@ const TimerProvider: React.FC<ChildrenProps> = ({ children }) => {
     pomodoro: number,
     shortBreak: number,
     longBreak: number,
-    active:string,
+    activeMenu:string,
   ) => {
     timerDispatch({
       type: "TIMER-FORM-SUBMIT",
-      payload: { pomodoro, shortBreak, longBreak,active },
+      payload: { pomodoro, shortBreak, longBreak,activeMenu },
     });
   };
 
-  const startPauseTimer=()=>{
-    timerDispatch({type:'START-STOP-COUNTDOWN'})
-  }
+  // const startPauseTimer=()=>{
+  //   timerDispatch({type:'START-STOP-COUNTDOWN'})
+  // }
 
   return (
     <TimerContext.Provider
@@ -63,7 +65,7 @@ const TimerProvider: React.FC<ChildrenProps> = ({ children }) => {
         toggleTimer,
         toggleFilterMode,
         timerSetting,
-        startPauseTimer
+        // startPauseTimer
       }}
     >
       {children}

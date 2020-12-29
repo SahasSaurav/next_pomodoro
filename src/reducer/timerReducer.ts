@@ -1,3 +1,4 @@
+import { clearInterval } from 'timers';
 import { defaultTime } from '../context/TimerContext';
 
 const timerReducer = (state, action) => {
@@ -7,41 +8,36 @@ const timerReducer = (state, action) => {
     case 'CLOSE-MODAL':
       return { ...state, isOpen: false }
     case 'TOGGLE-TIMER':
-      return { ...state, start: !action.payload }
+      return { ...state, timerRunning: !action.payload }
     case 'TOGGLE-MODE':
-      return { ...state, active: action.payload, time: state[action.payload] }
+      const {timerRunning}=state
+      return { ...state, activeMenu: action.payload, time: state[action.payload],currentTime:state[action.payload]*60 }
     case 'TIMER-FORM-SUBMIT':
-      let timing
-      const { active } = action.payload
-      console.log(active);
-
-      if (active === 'pomodoro') {
+      let timing=null
+      const { activeMenu } = action.payload
+      if (activeMenu === 'pomodoro') {
         timing = action.payload.pomodoro
-      } else if (active === 'shortBreak') {
+      } else if (activeMenu === 'shortBreak') {
         timing = action.payload.shortBreak
-      } else if (active === 'longBbreak') {
+      } else if (activeMenu === 'longBreak') {
         timing = action.payload.longBreak
       } else {
         timing = state.time
       }
-      return { ...state, isOpen: false, pomodoro: action.payload.pomodoro, shortBreak: action.payload.shortBreak, longBreak: action.payload.longBreak, time: timing }
+      return { ...state, isOpen: false, pomodoro: action.payload.pomodoro, shortBreak: action.payload.shortBreak, longBreak: action.payload.longBreak, time:timing ,currentTime:timing*60 }
     case 'START-STOP-COUNTDOWN':
-      let timer
-      if (state.active) {
-        timer = setInterval(() => {
-          console.log('hello');
-          console.log(state.time)
-          return state.time = Number(((state.time*60 - 1)/60).toFixed(2))
+      if (state.timerRunning) {
+        clearInterval(state.reference)
+      } else {
+        state.reference = setInterval(() => {
+          const { currentTime } = state
+          state.currentTime = currentTime - 1
         }, 1000)
-        if (state.time == 0) {
-          clearInterval(timer)
-          state.active = false;
+        if (state.currentTime === 0) {
+          clearInterval(state.refernce)
         }
       }
-      else {
-        clearInterval(timer)
-      }
-      
+
       return state;
     default:
       return state;

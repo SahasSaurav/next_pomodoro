@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { TimerContext } from "../context/TimerContext";
+import { TimerContextType } from "../types/TimerTypes";
 import SettingForm from "./SettingForm";
 
 const Setting = () => {
-  const {closeModal}=useContext(TimerContext);
+  const {closeModal}=useContext(TimerContext) as TimerContextType;
   return (
     <>
       <header className="flex flex-row jusitify-between p-6 -mx-8 border-b-2 border-gray">

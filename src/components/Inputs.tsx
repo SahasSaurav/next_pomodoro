@@ -1,4 +1,10 @@
-const Inputs:React.FC = ({ label, value, setValue }) => {
+interface InputsProps{
+  label:string,
+  value:number,
+  setValue:(e)=>void
+}
+
+const Inputs:React.FC<InputsProps>= ({ label, value, setValue }) => {
   return (
     <div>
       <label

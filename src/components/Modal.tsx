@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { TimerContext } from "../context/TimerContext";
 import { ChildrenProps } from "../types/Themetype";
+import { TimerContextType } from "../types/TimerTypes";
 
 const Modal: React.FC<ChildrenProps> = ({ children }) => {
-  const { isOpen, closeModal } = useContext(TimerContext);
+  const { isOpen, closeModal } = useContext(TimerContext) as TimerContextType;
 
   return (
     // {modal overlay}

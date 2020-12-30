@@ -14,3 +14,4 @@ export interface ThemeContextType {
 }
 
 export type ThemeActionType = | { type: 'TOGGLE-ACCENT-COLOR', payload: string } | { type: 'TOGGLE-ACCENT-FONT', payload: string }
+

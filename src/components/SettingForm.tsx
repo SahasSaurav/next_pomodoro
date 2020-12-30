@@ -6,24 +6,25 @@ import Inputs from "./Inputs";
 import { TimerContext } from "../context/TimerContext";
 import { ThemeContext } from "../context/ThemeContext";
 import { ThemeContextType } from "../types/Themetype";
+import { TimerContextType } from "../types/TimerTypes";
 
 const SettingForm = () => {
-  const { pomodoro, shortBreak, longBreak, timerSetting, activeMenu } = useContext(TimerContext);
+  const { pomodoro, shortBreak, longBreak, timerSetting, activeMenu } = useContext(TimerContext) as TimerContextType;
   const {changeAccentColor,changeAccentFont} =useContext(ThemeContext) as ThemeContextType;
-  const [selectedColor, setSelectedColor] = useState("--accent_coral");
-  const [selectedFont, setSelectedFont] = useState("--font_kumbh_sans");
-  const [pomoTime, setPomoTime] = useState(pomodoro);
-  const [shortTime, setShortTime] = useState(shortBreak);
+  const [selectedColor, setSelectedColor] = useState<string>("--accent_coral");
+  const [selectedFont, setSelectedFont] = useState<string>("--font_kumbh_sans");
+  const [pomoTime, setPomoTime] = useState<number>(pomodoro);
+  const [shortTime, setShortTime] = useState<number>(shortBreak);
+  const [longTime, setLongTime] = useState<number>(longBreak);
 
-  const [longTime, setLongTime] = useState(longBreak);
-  const fontTypes = [
+  const fontTypes:string[] = [
     "--font_kumbh_sans",
     "--font_roboto_slab",
     "--font_space_mono",
   ];
-  const colorTypes = ["--accent_coral", "--accent_cyan", "--accent_violet"];
+  const colorTypes:string[] = ["--accent_coral", "--accent_cyan", "--accent_violet"];
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e:React.FormEvent) => {
     e.preventDefault();
     timerSetting(pomoTime, shortTime, longTime,activeMenu);
     changeAccentColor(selectedColor)
@@ -64,7 +65,7 @@ const SettingForm = () => {
               return (
                 <button
                   key={font}
-                  onClick={(e) => setSelectedFont(e.target.dataset.font)}
+                  onClick={(e:any) => setSelectedFont(e.target.dataset.font)}
                   className={`flex items-center justify-center w-8 h-8 text-sm rounded-full ring-0 ring-gray ring-offset-2 hover:ring-2 font-kumbh-sans font-bold focus:outline-none ${
                     selectedFont === font
                       ? "text-gray bg-darkblue"
@@ -88,7 +89,7 @@ const SettingForm = () => {
               {colorTypes.map((color) => {
                 return (
                   <button
-                    onClick={(e) => setSelectedColor(e.target.dataset.color)}
+                    onClick={(e:any) => setSelectedColor(e.target.dataset.color)}
                     key={color}
                     className={`flex items-center justify-center w-8 h-8 rounded-full ring-0 ring-gray ring-offset-2  focus:outline-none hover:ring-2 `}
                     style={{

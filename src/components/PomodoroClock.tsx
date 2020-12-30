@@ -42,7 +42,7 @@ const PomodoroClock = () => {
     return () => {
       clearInterval(refernce);
     };
-  }, [activeMenu, time,]);
+  }, [activeMenu, time]);
 
   useEffect(() => {
     const stopOnMenuChange = () => {
@@ -53,17 +53,17 @@ const PomodoroClock = () => {
     stopOnMenuChange();
   }, [activeMenu]);
 
-  const startPauseTimer =() => {
+  const startPauseTimer=useCallback(() => {
     if (timerRunning) {
       clearInterval(refernce);
     } else {
       const id = setInterval(() => {
-        setCurentTime((prevState) => {
+       setCurentTime((prevState) => {
           if (prevState === 0) {
+            clearInterval(refernce);
             setCurentTime(0);
             stopTimerOnZero();
             setReset(true);
-            clearInterval(refernce);
           } else {
             return prevState - 1;
           }
@@ -71,7 +71,7 @@ const PomodoroClock = () => {
       }, 1000);
       setRefernce(id);
     }
-  }
+  },[currentTime,timerRunning])
 
   const resetTimer = useCallback(() => {
     if (reset) {
@@ -98,18 +98,17 @@ const PomodoroClock = () => {
   }, [reset]);
 
   const onClickHandler = () => {
-    if (currentTime !== 0) {
-      if (!reset) {
         toggleTimer(timerRunning);
         startPauseTimer();
         console.log({ a: "a" });
-      }
-    } else {
-      console.log({ b: "b" });
+  };
+
+  useEffect(()=>{
+    if(reset){
       setReset(false);
       resetTimer();
     }
-  };
+  },[reset])
 
   return (
     <button

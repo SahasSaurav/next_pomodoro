@@ -1,6 +1,6 @@
-import { defaultTime } from "../context/TimerContext";
+import { Timer,timerReducerType } from "../types/TimerTypes";
 
-const timerReducer = (state, action) => {
+const timerReducer = (state:Timer, action:timerReducerType) => {
   switch (action.type) {
     case 'OPEN-MODAL':
       return { ...state, isOpen: true }
@@ -12,7 +12,7 @@ const timerReducer = (state, action) => {
       return { ...state, timerRunning: false, activeMenu: action.payload, time: state[action.payload], currentTime: state[action.payload] * 60 }
     case 'TIMER-FORM-SUBMIT':
       let timing = null
-      const { activeMenu } = action.payload
+      const { activeMenu } = action.payload 
       if (activeMenu === 'pomodoro') {
         timing = action.payload.pomodoro
       } else if (activeMenu === 'shortBreak') {

@@ -1,25 +1,31 @@
 import { createContext, useReducer, useEffect, useState } from "react";
 import { ChildrenProps } from "../types/Themetype";
 import timerReducer from "../reducer/timerReducer";
+import {defaultTimeType, Timer,TimerContextType} from '../types/TimerTypes';
 
-export const defaultTime = {
+export const defaultTime:defaultTimeType = {
   pomodoro: 25 ,
   shortBreak: 5,
   longBreak: 15 ,
 };
 
-const timerInitialState = {
+
+
+const timerInitialState:Timer = {
   isOpen: false,
   timerRunning: false,
   activeMenu: "pomodoro",
   time: defaultTime.pomodoro, // in second, 
   currentTime: defaultTime.pomodoro, // in second, 
   pomodoro: 25,
-  shortBreak: 1/12,
+  shortBreak: 1,
   longBreak: 15,
 };
 
-export const TimerContext = createContext(null);
+
+
+
+export const TimerContext = createContext<TimerContextType|null>(null);
 
 const TimerProvider: React.FC<ChildrenProps> = ({ children }) => {
   const [timerState, timerDispatch] = useReducer(
@@ -27,6 +33,7 @@ const TimerProvider: React.FC<ChildrenProps> = ({ children }) => {
     timerInitialState
   );
   
+   
 
   const openModal = () => {
     timerDispatch({ type: "OPEN-MODAL" });
@@ -55,9 +62,6 @@ const TimerProvider: React.FC<ChildrenProps> = ({ children }) => {
   const stopTimerOnZero=()=>{
     timerDispatch({type:'STOP-ON-ZERO'})
   }
-  const resetTime=()=>{
-    timerDispatch({type:'RESET-TIMER'})
-  }
 
   return (
     <TimerContext.Provider
@@ -69,8 +73,6 @@ const TimerProvider: React.FC<ChildrenProps> = ({ children }) => {
         toggleFilterMode,
         timerSetting,
         stopTimerOnZero,
-        resetTime,
-        // startPauseTimer
       }}
     >
       {children}

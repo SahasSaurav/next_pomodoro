@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect, useCallback, memo } from "react";
 import { TimerContext } from "../context/TimerContext";
+import { TimerContextType } from "../types/TimerTypes";
 import { convertInMinute, convertInSecond, formatTime } from "../utils/time";
 
 const PomodoroClock = () => {
-  // startPauseTimer,currentTime
   const {
     time,
     timerRunning,
@@ -13,12 +13,12 @@ const PomodoroClock = () => {
     shortBreak,
     longBreak,
     stopTimerOnZero,
-  } = useContext(TimerContext);
+  } = useContext(TimerContext) as TimerContextType;
 
   const [countdownTime, setCounttdownTime] = useState<number>(time);
   const [currentTime, setCurentTime] = useState<number>(countdownTime * 60);
-  const [refernce, setRefernce] = useState(null);
-  const [reset, setReset] = useState(false);
+  const [refernce, setRefernce] = useState<null|NodeJS.Timeout>(null);
+  const [reset, setReset] = useState<boolean>(false);
 
   const calcTime = () => {
     let t;
@@ -62,6 +62,7 @@ const PomodoroClock = () => {
             setCurentTime(0);
             stopTimerOnZero();
             setReset(true);
+           
             clearInterval(refernce);
           } else {
             return prevState - 1;
@@ -112,6 +113,7 @@ const PomodoroClock = () => {
 
   return (
     <button
+      aria-label={reset?'click to reset the timer':timerRunning?'click to pause timer':'click to start timer'}
       onClick={onClickHandler}
       className="relative flex flex-shrink-0 mx-auto transition-shadow duration-150 ease-in-out rounded-full bg-darkestblue sm:w-96 sm:h-96 w-72 h-72 h shadow-lightwithinset hover:shadow-light active:shadow-lightwithinset focus:outline-none focus:ring-4 ring-opacity-60 ring-lightblue "
       style={{
@@ -141,7 +143,6 @@ const PomodoroClock = () => {
           strokeLinecap="round"
           strokeWidth="3"
           strokeDashoffset={276.5 - (currentTime / 60 / time) * 276.5}
-          //  "276.5 - durationToPercents(timerDuration, settings.durations[activeAction]) / 100 * 276.5"
         ></circle>
         <text
           className="fill-current text-lighblue font-bold"

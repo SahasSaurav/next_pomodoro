@@ -50,7 +50,7 @@ const SettingForm = () => {
               setValue={setLongTime}
             />
           </div>
-          {/* {(pomoTime || shortTime || longTime) > 59 && <InputErrorMsg />} */}
+          {(pomoTime || shortTime || longTime) > 59 && <InputErrorMsg />}
           {(pomoTime || shortTime || longTime) < 1 && <InputErrorMsg />}
 
         </div>

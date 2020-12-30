@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useCallback } from "react";
+import { useContext, useState, useEffect, useCallback, memo } from "react";
 import { TimerContext } from "../context/TimerContext";
 import { convertInMinute, convertInSecond, formatTime } from "../utils/time";
 
@@ -41,7 +41,7 @@ const PomodoroClock = () => {
     return () => {
       clearInterval(refernce);
     };
-  }, [activeMenu, time,reset]);
+  }, [activeMenu, time,]);
 
   useEffect(() => {
     const stopOnMenuChange = () => {
@@ -59,10 +59,10 @@ const PomodoroClock = () => {
       const id = setInterval(() => {
         setCurentTime((prevState) => {
           if (prevState === 0) {
+            setCurentTime(0);
             stopTimerOnZero();
             setReset(true);
             clearInterval(refernce);
-            setCurentTime(0);
           } else {
             return prevState - 1;
           }
@@ -70,42 +70,45 @@ const PomodoroClock = () => {
       }, 1000);
       setRefernce(id);
     }
-  }, [currentTime]);
+  }, [currentTime, time]);
 
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     if (reset) {
-      clearInterval(refernce)
+      clearInterval(refernce);
       switch (activeMenu) {
         case "pomodoro":
           setCounttdownTime(pomodoro);
-          setCurentTime(pomodoro*60)
+          setCurentTime(pomodoro * 60);
           break;
-        case 'shortBreak':
+        case "shortBreak":
           setCounttdownTime(shortBreak);
-         setCurentTime(shortBreak*60)
-         break;
-        case 'longBreak':
+          setCurentTime(shortBreak * 60);
+          break;
+        case "longBreak":
           setCounttdownTime(longBreak);
-         setCurentTime(longBreak*60)
-         break;
-         default:break;
+          setCurentTime(longBreak * 60);
+          break;
+        default:
+          break;
       }
     } else {
       return;
     }
-  };
+  }, [reset]);
 
   const onClickHandler = () => {
-    if(currentTime!==0 ){
-      toggleTimer(timerRunning);
-      startPauseTimer();
-    }
-    if(currentTime===0 && reset){
-      setReset(false)
-      resetTimer()
+    if (currentTime !== 0) {
+      if (!reset) {
+        toggleTimer(timerRunning);
+        startPauseTimer();
+        console.log({ a: "a" });
+      }
+    } else {
+      console.log({ b: "b" });
+      setReset(false);
+      resetTimer();
     }
   };
-
 
   return (
     <button
@@ -152,7 +155,7 @@ const PomodoroClock = () => {
           {formatTime(convertInMinute(currentTime))}:
           {formatTime(convertInSecond(currentTime))}
         </text>
-         <text
+        <text
           className="font-bold tracking-widest uppercase fill-current"
           style={{ fontFamily: "var(--accent_font)" }}
           fontSize="30%"
@@ -160,11 +163,11 @@ const PomodoroClock = () => {
           x="50%"
           y="70%"
         >
-          {currentTime<=0?'RESET':timerRunning ? "PAUSE" : "START"}
+          {currentTime <= 0 ? "RESET" : timerRunning ? "PAUSE" : "START"}
         </text>
       </svg>
     </button>
   );
 };
 
-export default PomodoroClock;
+export default memo(PomodoroClock);

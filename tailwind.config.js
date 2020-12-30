@@ -2,7 +2,18 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  purge: ["./src/*.html", "./src/*.js"],
+  purge: [
+    "./src/**/*.html",
+    "./src/**/*.tsx",
+    "./src/**/*.jsx",
+    "./src/**/*.js",
+    "./src/**/*.ts",
+    "./src/*.html",
+    "./src/*.tsx",
+    "./src/*.jsx",
+    "./src/*.js",
+    "./src/*.ts",
+  ],
   darkMode: false,
   theme: {
     colors: {
@@ -34,7 +45,8 @@ module.exports = {
         time: "6.25em",
       },
       boxShadow: {
-        light: "-50px -50px 100px 0 rgba(22, 25, 50, 0.5), 50px 50px 100px 0 rgba(215, 224, 255, 0.1)",
+        light:
+          "-50px -50px 100px 0 rgba(22, 25, 50, 0.5), 50px 50px 100px 0 rgba(215, 224, 255, 0.1)",
         lightwithinset:
           "-50px -50px 100px 0 rgba(215, 224, 255, 0.1), 50px 50px 100px 0 rgba(22, 25, 50, 0.5), inset 20px 20px 25px 0 rgba(22, 25, 50, 0.5), inset -20px -20px 25px 0 rgba(215, 224, 255, 0.1)",
       },

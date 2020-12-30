@@ -34,6 +34,7 @@ const PomodoroClock = () => {
     }
   };
 
+  console.log(refernce)
   useEffect(() => {
     const timer = calcTime();
     setCounttdownTime(timer);
@@ -52,7 +53,7 @@ const PomodoroClock = () => {
     stopOnMenuChange();
   }, [activeMenu]);
 
-  const startPauseTimer = useCallback(() => {
+  const startPauseTimer =() => {
     if (timerRunning) {
       clearInterval(refernce);
     } else {
@@ -62,7 +63,6 @@ const PomodoroClock = () => {
             setCurentTime(0);
             stopTimerOnZero();
             setReset(true);
-           
             clearInterval(refernce);
           } else {
             return prevState - 1;
@@ -71,7 +71,7 @@ const PomodoroClock = () => {
       }, 1000);
       setRefernce(id);
     }
-  }, [currentTime, time]);
+  }
 
   const resetTimer = useCallback(() => {
     if (reset) {

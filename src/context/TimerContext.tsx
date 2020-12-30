@@ -18,7 +18,11 @@ const timerInitialState:Timer = {
   time: defaultTime.pomodoro, // in second, 
   currentTime: defaultTime.pomodoro, // in second, 
   pomodoro: 25,
+<<<<<<< HEAD
   shortBreak: 1,
+=======
+  shortBreak: 5,
+>>>>>>> refs/remotes/origin/main
   longBreak: 15,
 };
 

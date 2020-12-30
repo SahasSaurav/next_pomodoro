@@ -18,7 +18,7 @@ const timerInitialState:Timer = {
   time: defaultTime.pomodoro, // in second, 
   currentTime: defaultTime.pomodoro, // in second, 
   pomodoro: 25,
-  shortBreak: 1,
+  shortBreak: 5,
   longBreak: 15,
 };
 

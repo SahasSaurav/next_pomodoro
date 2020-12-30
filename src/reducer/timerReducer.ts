@@ -1,3 +1,5 @@
+import { defaultTime } from "../context/TimerContext";
+
 const timerReducer = (state, action) => {
   switch (action.type) {
     case 'OPEN-MODAL':
@@ -21,23 +23,9 @@ const timerReducer = (state, action) => {
         timing = state.time
       }
       return { ...state, isOpen: false, pomodoro: action.payload.pomodoro, shortBreak: action.payload.shortBreak, longBreak: action.payload.longBreak, time: timing, currentTime: timing * 60 }
-    case 'START-STOP-COUNTDOWN':
-      if (state.timerRunning === true) {
-        state.reference = window.setInterval(() => {
-          if (state.currentTime===0) {
-            window.clearInterval(state.reference)
-          }
-          const { currentTime } = state
-          console.log(currentTime)
-          console.log(state.reference)
-          state.currentTime = currentTime - 1
-        }, 1000)
-        
-      } else {
-        window.clearInterval(state.reference)
-      }
+      case 'STOP-ON-ZERO':
+        return {...state,timerRunning:false}
 
-      return state;
     default:
       return state;
   }

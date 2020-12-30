@@ -1,4 +1,6 @@
-const themeReducer = (state, action) => {
+import { Theme,ThemeActionType } from "../types/Themetype";
+
+const themeReducer = (state:Theme, action:ThemeActionType) => {
   const root = document.documentElement
   switch (action.type) {
     case 'TOGGLE-ACCENT-COLOR':

@@ -5,10 +5,11 @@ import Inputs from "./Inputs";
 
 import { TimerContext } from "../context/TimerContext";
 import { ThemeContext } from "../context/ThemeContext";
+import { ThemeContextType } from "../types/Themetype";
 
 const SettingForm = () => {
   const { pomodoro, shortBreak, longBreak, timerSetting, activeMenu } = useContext(TimerContext);
-  const {changeAccentColor,changeAccentFont} =useContext(ThemeContext)
+  const {changeAccentColor,changeAccentFont} =useContext(ThemeContext) as ThemeContextType;
   const [selectedColor, setSelectedColor] = useState("--accent_coral");
   const [selectedFont, setSelectedFont] = useState("--font_kumbh_sans");
   const [pomoTime, setPomoTime] = useState(pomodoro);
@@ -49,7 +50,7 @@ const SettingForm = () => {
               setValue={setLongTime}
             />
           </div>
-          {(pomoTime || shortTime || longTime) > 59 && <InputErrorMsg />}
+          {/* {(pomoTime || shortTime || longTime) > 59 && <InputErrorMsg />} */}
           {(pomoTime || shortTime || longTime) < 1 && <InputErrorMsg />}
 
         </div>

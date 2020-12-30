@@ -1,15 +1,16 @@
 import { createContext, useReducer } from "react";
 import themeReducer from "../reducer/themeReducer";
+import { ChildrenProps, Theme, ThemeContextType } from "../types/Themetype";
 
-const initalState = {
+const initialState: Theme = {
   accentColor: "--acent-coral",
-  accentFont: "--font-",
+  accentFont: "--font-kumbh-sans",
 };
 
-export const ThemeContext = createContext<null>(null);
+export const ThemeContext = createContext<ThemeContextType| null>(null);
 
-const ThemeProvider = ({ children }) => {
-  const [themeState, themeDispatch] = useReducer(themeReducer, initalState);
+const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
+  const [themeState, themeDispatch] = useReducer(themeReducer, initialState);
 
   const changeAccentColor = (color: string) => {
     themeDispatch({ type: "TOGGLE-ACCENT-COLOR", payload: color });

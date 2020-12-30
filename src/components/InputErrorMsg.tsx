@@ -1,4 +1,4 @@
-const InputErrorMsg = () => {
+const InputErrorMsg:React.FC = () => {
   return (
     <div className="flex mt-2">
       <svg

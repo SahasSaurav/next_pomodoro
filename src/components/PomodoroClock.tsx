@@ -1,37 +1,115 @@
-import { useContext, useState,useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { TimerContext } from "../context/TimerContext";
 import { convertInMinute, convertInSecond, formatTime } from "../utils/time";
 
 const PomodoroClock = () => {
-  
-  const {time,timerRunning,toggleTimer,startPauseTimer,currentTime} =useContext(TimerContext);
- 
+  // startPauseTimer,currentTime
+  const {
+    time,
+    timerRunning,
+    toggleTimer,
+    activeMenu,
+    pomodoro,
+    shortBreak,
+    longBreak,
+    stopTimerOnZero,
+  } = useContext(TimerContext);
+
+  const [countdownTime, setCounttdownTime] = useState<number>(time);
+  const [currentTime, setCurentTime] = useState<number>(countdownTime * 60);
+  const [refernce, setRefernce] = useState(null);
+  const [reset, setReset] = useState(false);
+
+  const calcTime = () => {
+    let t;
+    switch (activeMenu) {
+      case "pomodoro":
+        return (t = pomodoro);
+      case "shortBreak":
+        return (t = shortBreak);
+      case "longBreak":
+        return (t = longBreak);
+      default:
+        return (t = time);
+    }
+  };
+
+  useEffect(() => {
+    const timer = calcTime();
+    setCounttdownTime(timer);
+    setCurentTime(timer * 60);
+    return () => {
+      clearInterval(refernce);
+    };
+  }, [activeMenu, time,reset]);
+
+  useEffect(() => {
+    const stopOnMenuChange = () => {
+      if (timerRunning == false) {
+        clearInterval(refernce);
+      }
+    };
+    stopOnMenuChange();
+  }, [activeMenu]);
+
+  const startPauseTimer = useCallback(() => {
+    if (timerRunning) {
+      clearInterval(refernce);
+    } else {
+      const id = setInterval(() => {
+        setCurentTime((prevState) => {
+          if (prevState === 0) {
+            stopTimerOnZero();
+            setReset(true);
+            clearInterval(refernce);
+            setCurentTime(0);
+          } else {
+            return prevState - 1;
+          }
+        });
+      }, 1000);
+      setRefernce(id);
+    }
+  }, [currentTime]);
+
+  const resetTimer = () => {
+    if (reset) {
+      clearInterval(refernce)
+      switch (activeMenu) {
+        case "pomodoro":
+          setCounttdownTime(pomodoro);
+          setCurentTime(pomodoro*60)
+          break;
+        case 'shortBreak':
+          setCounttdownTime(shortBreak);
+         setCurentTime(shortBreak*60)
+         break;
+        case 'longBreak':
+          setCounttdownTime(longBreak);
+         setCurentTime(longBreak*60)
+         break;
+         default:break;
+      }
+    } else {
+      return;
+    }
+  };
+
+  const onClickHandler = () => {
+    if(currentTime!==0 ){
+      toggleTimer(timerRunning);
+      startPauseTimer();
+    }
+    if(currentTime===0 && reset){
+      setReset(false)
+      resetTimer()
+    }
+  };
 
 
-  // const [countdownTime,setCounttdownTime]=useState<number>(time)
-  // const [currentTime,setCurentTime]=useState<number>(countdownTime*60)
-
-  // const [refernce,setRefernce]=useState(null)
-  
- 
-  // const  startPauseTimer=()=>{
-  //   if(timerRunning){
-  //     clearInterval(refernce)
-  //   }else{
-  //     const id=setInterval(()=>{
-  //       setCurentTime(prevState=> prevState-1)
-  //     },1000)
-  //     setRefernce(id)
-  //   }
-  // }
-  
-
-  const onClickHandler=()=>{
-   toggleTimer(timerRunning)
-   startPauseTimer()
-  }
   return (
-    <button onClick={onClickHandler}
+    <button
+      onClick={onClickHandler}
       className="relative flex flex-shrink-0 mx-auto transition-shadow duration-150 ease-in-out rounded-full bg-darkestblue sm:w-96 sm:h-96 w-72 h-72 h shadow-lightwithinset hover:shadow-light active:shadow-lightwithinset focus:outline-none focus:ring-4 ring-opacity-60 ring-lightblue "
       style={{
         borderRadius: "50%",
@@ -59,7 +137,7 @@ const PomodoroClock = () => {
           strokeDasharray="276.5 276.5"
           strokeLinecap="round"
           strokeWidth="3"
-           strokeDashoffset={276.5-(((currentTime/60)/time)*276.5)}
+          strokeDashoffset={276.5 - (currentTime / 60 / time) * 276.5}
           //  "276.5 - durationToPercents(timerDuration, settings.durations[activeAction]) / 100 * 276.5"
         ></circle>
         <text
@@ -71,9 +149,10 @@ const PomodoroClock = () => {
           y="50%"
           dy=".3em"
         >
-          {formatTime(convertInMinute(currentTime))}:{formatTime(convertInSecond(currentTime))}
+          {formatTime(convertInMinute(currentTime))}:
+          {formatTime(convertInSecond(currentTime))}
         </text>
-        <text
+         <text
           className="font-bold tracking-widest uppercase fill-current"
           style={{ fontFamily: "var(--accent_font)" }}
           fontSize="30%"
@@ -81,7 +160,7 @@ const PomodoroClock = () => {
           x="50%"
           y="70%"
         >
-         {timerRunning?'PAUSE':'START'}
+          {currentTime<=0?'RESET':timerRunning ? "PAUSE" : "START"}
         </text>
       </svg>
     </button>

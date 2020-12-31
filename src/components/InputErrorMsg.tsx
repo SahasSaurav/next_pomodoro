@@ -1,3 +1,5 @@
+ import {memo} from 'react'
+
 const InputErrorMsg:React.FC = () => {
   return (
     <div className="flex mt-2">
@@ -20,4 +22,4 @@ const InputErrorMsg:React.FC = () => {
   );
 };
 
-export default InputErrorMsg;
+export default memo(InputErrorMsg);

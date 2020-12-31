@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import InputErrorMsg from "./InputErrorMsg";
 import Inputs from "./Inputs";
@@ -9,26 +9,39 @@ import { ThemeContextType } from "../types/Themetype";
 import { TimerContextType } from "../types/TimerTypes";
 
 const SettingForm = () => {
-  const { pomodoro, shortBreak, longBreak, timerSetting, activeMenu } = useContext(TimerContext) as TimerContextType;
-  const {changeAccentColor,changeAccentFont} =useContext(ThemeContext) as ThemeContextType;
+  const {
+    pomodoro,
+    shortBreak,
+    longBreak,
+    timerSetting,
+    activeMenu,
+  } = useContext(TimerContext) as TimerContextType;
+  const { changeAccentColor, changeAccentFont } = useContext(
+    ThemeContext
+  ) as ThemeContextType;
   const [selectedColor, setSelectedColor] = useState<string>("--accent_coral");
   const [selectedFont, setSelectedFont] = useState<string>("--font_kumbh_sans");
   const [pomoTime, setPomoTime] = useState<number>(pomodoro);
   const [shortTime, setShortTime] = useState<number>(shortBreak);
   const [longTime, setLongTime] = useState<number>(longBreak);
+  const [error, setError] = useState<boolean>(false);
 
-  const fontTypes:string[] = [
+  const fontTypes: string[] = [
     "--font_kumbh_sans",
     "--font_roboto_slab",
     "--font_space_mono",
   ];
-  const colorTypes:string[] = ["--accent_coral", "--accent_cyan", "--accent_violet"];
+  const colorTypes: string[] = [
+    "--accent_coral",
+    "--accent_cyan",
+    "--accent_violet",
+  ];
 
-  const onSubmitHandler = (e:React.FormEvent) => {
+  const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    timerSetting(pomoTime, shortTime, longTime,activeMenu);
-    changeAccentColor(selectedColor)
-    changeAccentFont(selectedFont)
+    timerSetting(pomoTime, shortTime, longTime, activeMenu);
+    changeAccentColor(selectedColor);
+    changeAccentFont(selectedFont);
   };
 
   return (
@@ -39,21 +52,26 @@ const SettingForm = () => {
             Time (minutes)
           </h2>
           <div className="grid grid-cols-3 gap-4 ">
-            <Inputs label="pomodoro" value={pomoTime} setValue={setPomoTime} />
+            <Inputs
+              label="pomodoro"
+              value={pomoTime}
+              setValue={setPomoTime}
+              setError={setError}
+            />
             <Inputs
               label="short break"
               value={shortTime}
               setValue={setShortTime}
+              setError={setError}
             />
             <Inputs
               label="long break"
               value={longTime}
               setValue={setLongTime}
+              setError={setError}
             />
           </div>
-          {(pomoTime || shortTime || longTime) > 59 && <InputErrorMsg />}
-          {(pomoTime || shortTime || longTime) < 1 && <InputErrorMsg />}
-
+          {error && <InputErrorMsg />}
         </div>
 
         <div className="flex items-center justify-between py-4">
@@ -65,7 +83,7 @@ const SettingForm = () => {
               return (
                 <button
                   key={font}
-                  onClick={(e:any) => setSelectedFont(e.target.dataset.font)}
+                  onClick={(e: any) => setSelectedFont(e.target.dataset.font)}
                   className={`flex items-center justify-center w-8 h-8 text-sm rounded-full ring-0 ring-gray ring-offset-2 hover:ring-2 font-kumbh-sans font-bold focus:outline-none ${
                     selectedFont === font
                       ? "text-gray bg-darkblue"
@@ -89,7 +107,9 @@ const SettingForm = () => {
               {colorTypes.map((color) => {
                 return (
                   <button
-                    onClick={(e:any) => setSelectedColor(e.target.dataset.color)}
+                    onClick={(e: any) =>
+                      setSelectedColor(e.target.dataset.color)
+                    }
                     key={color}
                     className={`flex items-center justify-center w-8 h-8 rounded-full ring-0 ring-gray ring-offset-2  focus:outline-none hover:ring-2 `}
                     style={{

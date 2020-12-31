@@ -34,7 +34,6 @@ const PomodoroClock = () => {
     }
   };
 
-  console.log(refernce)
   useEffect(() => {
     const timer = calcTime();
     setCounttdownTime(timer);
@@ -100,7 +99,6 @@ const PomodoroClock = () => {
   const onClickHandler = () => {
         toggleTimer(timerRunning);
         startPauseTimer();
-        console.log({ a: "a" });
   };
 
   useEffect(()=>{

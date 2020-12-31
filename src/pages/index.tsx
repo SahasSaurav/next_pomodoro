@@ -4,6 +4,7 @@ import PomodoroClock from "../components/PomodoroClock";
 import SettingButton from "../components/SettingButton";
 import Modal from "../components/Modal";
 import Setting from "../components/Setting";
+import Portals from "../components/Portals";
 
 
 const Home:React.FC = () => {
@@ -25,9 +26,11 @@ const Home:React.FC = () => {
           <PomodoroClock />
         </article>
        <SettingButton />
-       <Modal>
+       <Portals selector="#portals">
+       <Modal  >
          <Setting />
        </Modal>
+       </Portals>
       </div>
     </>
   );

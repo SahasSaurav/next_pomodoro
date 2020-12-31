@@ -21,7 +21,7 @@ const PomodoroClock = () => {
   } = useContext(TimerContext) ;
 
   const [countdownTime, setCounttdownTime] = useState<number>(time);
-  const [currentTime, setCurentTime] = useState<number>(countdownTime * 60);
+  const [currentTime, setCurrentTime] = useState<number>(countdownTime * 60);
   const [refernce, setRefernce] = useState<null|NodeJS.Timeout>(null);
   const [reset, setReset] = useState<boolean>(false);
   // const [beepPlay,{stop}]=useSound(BeepSound);
@@ -44,7 +44,7 @@ const PomodoroClock = () => {
   useEffect(() => {
     const timer = calcTime();
     setCounttdownTime(timer);
-    setCurentTime(timer * 60);
+    setCurrentTime(timer * 60);
     return () => {
       clearInterval(refernce);
     };
@@ -66,10 +66,10 @@ const PomodoroClock = () => {
     } else {
       const id = setInterval(() => {
         // soundOnPlay()
-       setCurentTime((prevState) => {
+       setCurrentTime((prevState) => {
           if (prevState === 0) {
             clearInterval(refernce);
-            setCurentTime(0);
+            setCurrentTime(0);
             stopTimerOnZero();
             setReset(true);
           } else {
@@ -88,15 +88,15 @@ const PomodoroClock = () => {
       switch (activeMenu) {
         case "pomodoro":
           setCounttdownTime(pomodoro);
-          setCurentTime(pomodoro * 60);
+          setCurrentTime(pomodoro * 60);
           break;
         case "shortBreak":
           setCounttdownTime(shortBreak);
-          setCurentTime(shortBreak * 60);
+          setCurrentTime(shortBreak * 60);
           break;
         case "longBreak":
           setCounttdownTime(longBreak);
-          setCurentTime(longBreak * 60);
+          setCurrentTime(longBreak * 60);
           break;
         default:
           break;

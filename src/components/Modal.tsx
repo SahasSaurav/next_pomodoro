@@ -4,7 +4,7 @@ import { ChildrenProps } from "../types/Themetype";
 import { TimerContextType } from "../types/TimerTypes";
 
 const Modal: React.FC<ChildrenProps> = ({ children }) => {
-  const { isOpen, closeModal } = useContext(TimerContext) as TimerContextType;
+  const { isOpen} = useContext(TimerContext) as TimerContextType;
 
   const [mounted,setMounted]=useState<boolean>(false)
   const [height,setHeight]=useState<number>(null)

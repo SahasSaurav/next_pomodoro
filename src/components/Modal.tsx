@@ -16,7 +16,7 @@ const Modal: React.FC<ChildrenProps> = ({ children }) => {
 
   useEffect(() => {
     setHeight(innerHeight+scrollY)
-  }, [scrollY])
+  }, [innerHeight,scrollY])
 
   return (
     // {modal overlay}

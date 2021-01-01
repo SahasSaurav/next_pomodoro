@@ -8,6 +8,7 @@ import { convertInMinute, convertInSecond, formatTime } from "../utils/time";
 
 const PomodoroClock = () => {
   const {
+    isOpen,
     time,
     timerRunning,
     toggleTimer,
@@ -55,7 +56,7 @@ const PomodoroClock = () => {
       }
     };
     stopOnMenuChange();
-  }, [activeMenu]);
+  }, [activeMenu,isOpen]);
 
   const startPauseTimer=useCallback(() => {
     stop()

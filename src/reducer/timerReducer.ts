@@ -22,7 +22,7 @@ const timerReducer = (state:Timer, action:timerReducerType) => {
       } else {
         timing = state.time
       }
-      return { ...state, isOpen: false,timerRunning:false, pomodoro: action.payload.pomodoro, shortBreak: action.payload.shortBreak, longBreak: action.payload.longBreak, time: timing, currentTime: timing * 60 }
+      return { ...state, isOpen: false, pomodoro: action.payload.pomodoro, shortBreak: action.payload.shortBreak, longBreak: action.payload.longBreak, time: timing, currentTime: timing * 60 ,timerRunning:false}
       case 'STOP-ON-ZERO':
         return {...state,timerRunning:false}
 

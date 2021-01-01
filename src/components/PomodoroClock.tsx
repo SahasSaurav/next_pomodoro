@@ -5,8 +5,6 @@ import { TimerContext } from "../context/TimerContext";
 import { TimerContextType } from "../types/TimerTypes";
 import { convertInMinute, convertInSecond, formatTime } from "../utils/time";
 
-// import BeepSound from '../assets/Timer_Beep.mp3';
-// import SoundOn from '../assets/switch-on.mp3';
 
 const PomodoroClock = () => {
   const {
@@ -18,14 +16,14 @@ const PomodoroClock = () => {
     shortBreak,
     longBreak,
     stopTimerOnZero,
-  } = useContext(TimerContext) ;
+  } = useContext(TimerContext) as TimerContextType ;
 
   const [countdownTime, setCounttdownTime] = useState<number>(time);
   const [currentTime, setCurrentTime] = useState<number>(countdownTime * 60);
   const [refernce, setRefernce] = useState<null|NodeJS.Timeout>(null);
   const [reset, setReset] = useState<boolean>(false);
-  // const [beepPlay,{stop}]=useSound(BeepSound);
-  // const [soundOnPlay]=useSound(SoundOn);
+  const [beepPlay,{stop}]=useSound('/Timer_Beep.mp3');
+  const [soundOnPlay]=useSound('/switch-on.mp3');
 
   const calcTime = () => {
     let t;
@@ -65,7 +63,7 @@ const PomodoroClock = () => {
       clearInterval(refernce);
     } else {
       const id = setInterval(() => {
-        // soundOnPlay()
+        soundOnPlay()
        setCurrentTime((prevState) => {
           if (prevState === 0) {
             clearInterval(refernce);
@@ -83,7 +81,7 @@ const PomodoroClock = () => {
 
   const resetTimer = useCallback(() => {
     if (reset) {
-      // beepPlay()
+      beepPlay()
       clearInterval(refernce);
       switch (activeMenu) {
         case "pomodoro":
@@ -107,7 +105,7 @@ const PomodoroClock = () => {
   }, [reset]);
 
   const onClickHandler = () => {
-        // soundOnPlay();
+        soundOnPlay();
         toggleTimer(timerRunning);
         startPauseTimer();
   };

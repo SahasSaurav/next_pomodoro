@@ -25,6 +25,7 @@ const PomodoroClock = () => {
   const [reset, setReset] = useState<boolean>(false);
   const [beepPlay,{stop}]=useSound('/Timer_Beep.mp3');
   const [soundOnPlay]=useSound('/switch-on.mp3');
+  const [onOff]=useSound('/CASSETTEOFF.mp3')
 
   const calcTime = () => {
     let t;
@@ -106,7 +107,7 @@ const PomodoroClock = () => {
   }, [reset]);
 
   const onClickHandler = () => {
-        soundOnPlay();
+        onOff(); //sound
         toggleTimer(timerRunning);
         startPauseTimer();
   };

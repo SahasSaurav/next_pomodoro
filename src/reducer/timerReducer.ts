@@ -6,7 +6,7 @@ const timerReducer = (state:Timer, action:timerReducerType) => {
       return { ...state, isOpen: true }
     case 'CLOSE-MODAL':
       return { ...state, isOpen: false }
-    case 'TOGGLE-TIMER':
+    case 'TOGGLE-TIMER': 
       return { ...state, timerRunning: !action.payload }
     case 'TOGGLE-MODE':
       return { ...state, timerRunning: false, activeMenu: action.payload, time: state[action.payload], currentTime: state[action.payload] * 60 }
@@ -25,7 +25,6 @@ const timerReducer = (state:Timer, action:timerReducerType) => {
       return { ...state, isOpen: false, pomodoro: action.payload.pomodoro, shortBreak: action.payload.shortBreak, longBreak: action.payload.longBreak, time: timing, currentTime: timing * 60 ,timerRunning:false}
       case 'STOP-ON-ZERO':
         return {...state,timerRunning:false}
-
     default:
       return state;
   }

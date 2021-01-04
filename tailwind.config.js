@@ -13,6 +13,7 @@ module.exports = {
     "./src/*.jsx",
     "./src/*.js",
     "./src/*.ts",
+    "./src/assets/css/*.css"
   ],
   darkMode: false,
   theme: {

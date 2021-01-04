@@ -24,7 +24,7 @@ const PomodoroClock = () => {
   const [refernce, setRefernce] = useState<null|NodeJS.Timeout>(null);
   const [reset, setReset] = useState<boolean>(false);
   const [beepPlay,{stop}]=useSound('/Timer_Beep.mp3');
-  const [soundOnPlay]=useSound('/switch-on.mp3');
+  // const [soundOnPlay]=useSound('/switch-on.mp3')soun
   const [onOff]=useSound('/CASSETTEOFF.mp3')
 
   const calcTime = () => {
@@ -65,14 +65,14 @@ const PomodoroClock = () => {
       clearInterval(refernce);
     } else {
       const id = setInterval(() => {
-        soundOnPlay()
-       setCurrentTime((prevState) => {
+        setCurrentTime((prevState) => {
           if (prevState === 0) {
             clearInterval(refernce);
             setCurrentTime(0);
             stopTimerOnZero();
             setReset(true);
           } else {
+            // soundOnPlay()
             return prevState - 1;
           }
         });

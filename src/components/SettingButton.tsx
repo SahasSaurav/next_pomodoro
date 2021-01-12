@@ -6,7 +6,7 @@ const SettingButton = () => {
   const {openModal}=useContext(TimerContext) as TimerContextType;
 
   return (
-    <button onClick={openModal} className="mx-auto mb-8 block p-2 rounded-full hover:bg-darkestblue focus:outline-none focus:ring-4 ring-lightblue ring-opacity-40">
+    <button onClick={openModal} className="mx-auto mb-8 block p-2 rounded-full hover:bg-darkestblue focus:outline-none focus:ring-4 ring-lightblue ring-opacity-40"aria-label="click to open setting menu" >
       <svg
         className="transitions-color duration-200 ease-in-out  fill-current text-gray hover:text-lightblue "
         xmlns="http://www.w3.org/2000/svg"

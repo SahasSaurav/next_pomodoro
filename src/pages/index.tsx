@@ -14,6 +14,7 @@ const Home:React.FC = () => {
         <title>Pomodoro Clock</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="The pomodoro clock for efficient time management for studing"/>
       </Head>
       <div className="container mx-auto p-4 flex flex-col justify-between items-center h-screen">
         <div>

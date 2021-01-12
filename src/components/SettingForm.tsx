@@ -91,6 +91,7 @@ const SettingForm = () => {
                   }`}
                   type="button"
                   data-font={font}
+                  aria-label={`click to change to ${font.slice(7)}`}
                 >
                   Aa
                 </button>
@@ -117,6 +118,7 @@ const SettingForm = () => {
                     }}
                     type="button"
                     data-color={color}
+                    aria-label={`click to change the accent color to ${color.slice(9)}`}
                   >
                     <svg
                       className={`stroke-current text-darkestblue ${
@@ -142,6 +144,7 @@ const SettingForm = () => {
 
         <button
           className="block px-8 py-2 mx-auto -mb-8 text-white text-center transition-colors duration-200 ease-in-out rounded-full bg-coral hover:bg-red-300  focus:outline-none "
+          aria-label="apply change to the setting"
           data-qa="apply-btn"
           type="submit"
         >

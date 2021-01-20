@@ -1,9 +1,14 @@
 const version = "v2";
 const cacheName = `sw-${version}`;
-const preCacheAssets = ["/"];
+const preCacheAssets = [
+  "/",
+  "./favicon.ico",
+  "./Timer_Beep.mp3",
+  "./CASSETTEOFF.mp3",
+];
 
 self.addEventListener("install", (event) => {
-  console.log(`Servce worker is installed`)
+  console.log(`Servce worker is installed`);
   event.waitUntil(
     caches.open(cacheName).then((cache) => {
       return cache.addAll(preCacheAssets);
@@ -12,7 +17,7 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("active", (event) => {
-  console.log(`Servce worker is activated`)
+  console.log(`Servce worker is activated`);
   event.waitUntil(
     caches.keys().then((cacheName) => {
       return Promise.all(
@@ -28,12 +33,11 @@ self.addEventListener("active", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  console.log(`Servce worker is fetching`)
+  console.log(`Servce worker is fetching`);
   event.respondWith(
     caches.match(event.request).then((resp) => {
       return (
-        resp 
-        ||
+        resp ||
         fetch(event.request).then((response) => {
           let responseClone = response.clone();
           caches.open(cacheName).then((cache) => {

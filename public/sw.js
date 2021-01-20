@@ -1,6 +1,6 @@
 const version = "v2";
 const cacheName = `sw-${version}`;
-const preCacheAssets = [
+const preCachedAssets = [
   "/",
   "./favicon.ico",
   "./Timer_Beep.mp3",

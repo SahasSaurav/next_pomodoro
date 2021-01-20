@@ -5,9 +5,11 @@ import SettingButton from "../components/SettingButton";
 import Modal from "../components/Modal";
 import Setting from "../components/Setting";
 import Portals from "../components/Portals";
+import useIsOnline from "../hooks/useIsOnline";
 
 
 const Home:React.FC = () => {
+  const offline=useIsOnline();
   return (
     <>
       <Head>

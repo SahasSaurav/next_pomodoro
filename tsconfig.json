@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/PomodoroClock.tsx"  ],
+, "src/components/PomodoroClock.tsx", "public/sw.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -7,33 +7,38 @@ import Setting from "../components/Setting";
 import Portals from "../components/Portals";
 import useIsOnline from "../hooks/useIsOnline";
 
-
-const Home:React.FC = () => {
-  const offline=useIsOnline();
+const Home: React.FC = () => {
+  const online = useIsOnline();
   return (
     <>
       <Head>
         <title>Pomodoro Clock</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="The pomodoro clock for efficient time management for studing"/>
+        <meta
+          name="description"
+          content="The pomodoro clock for efficient time management for studing"
+        />
       </Head>
       <div className="container mx-auto p-4 flex flex-col justify-between items-center h-screen">
+        <div className={`text-white text-xl absolute right-5 top-2 ${online?'hidden':'block'}`}>
+          App is offline now
+        </div>
         <div>
-        <h1 className="text-lightblue text-4xl text-center mt-8 mb-10 text-logo font-bold">
-          pomodoro
-        </h1>
-        <PomodoroMenu />
+          <h1 className="text-lightblue text-4xl text-center mt-8 mb-10 text-logo font-bold">
+            pomodoro
+          </h1>
+          <PomodoroMenu />
         </div>
         <article className="flex justify-center items-center h-f my-10 ">
           <PomodoroClock />
         </article>
-       <SettingButton />
-       <Portals selector="#portals">
-       <Modal  >
-         <Setting />
-       </Modal>
-       </Portals>
+        <SettingButton />
+        <Portals selector="#portals">
+          <Modal>
+            <Setting />
+          </Modal>
+        </Portals>
       </div>
     </>
   );

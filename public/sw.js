@@ -1,4 +1,4 @@
-const version = "v2";
+const version = "v1";
 const cacheName = `sw-${version}`;
 const preCachedAssets = [
   "/",

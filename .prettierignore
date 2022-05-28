@@ -1,0 +1,14 @@
+# Public files
+public/sw.js
+public/workbox-*.js
+
+# Code Editor
+.vscode
+
+# Build files and libraries
+.next
+build
+node_modules
+
+# package-lock
+package-lock.json

@@ -10,7 +10,7 @@ echo 'Running check for pretiier'
 npm run check-format ||
 (
   echo 'Prettier Check Failed.\
-   Run npm run format, add changes and try commit again.';
+   Run npm run prettify, add changes and try commit again.';
   false;
 )
 

@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	@font-face {
+		font-family: "Kumbh Sans";
+		font-weight: 700;
+		src: url(/assets/fonts/KumbhSans-Bold.ttf) format("ttf");
+	}
+	@font-face {
+		font-family: "Roboto Slab";
+		font-weight: 700;
+		src: url(/assets/fonts/RobotoSlab-Bold.ttf) format("ttf");
+	}
+	@font-face {
+		font-family: "Space Mono";
+		font-weight: 400;
+		src: url(/assets/fonts/SpaceMono-Regular.ttf) format("ttf");
+	}
+	@font-face {
+		font-family: "Space Mono";
+		font-weight: 700;
+		src: url(/assets/fonts/SpaceMono-Bold.ttf) format("ttf");
+	}
+	body {
+		@apply bg-darkestblue  font-kumbh-sans;
+	}
+}
+
+:root {
+	--accent_coral: #f87272;
+	--accent_cyan: #70f3f8;
+	--accent_violet: #d881f8;
+	--accent_clr: var(--accent_coral);
+
+	--font_roboto_slab: "Roboto Slab";
+	--font_space_mono: "Space Mono";
+	--accent_font: var(--font_kumbh_sans);
+	--font_kumbh_sans: @apply font-kumbh-sans;
+}
+.active {
+	background-color: var(--accent_clr);
+}

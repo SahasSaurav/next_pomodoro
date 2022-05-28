@@ -1,0 +1,35 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo 'Running check for pretiier'
+
+# Check Prettier standards
+npm run check-format ||
+(
+  echo 'Prettier Check Failed.\
+   Run npm run format, add changes and try commit again.';
+  false;
+)
+
+echo 'Running check for eslint'
+
+# Check ESLint Standards
+npm run check-lint ||
+(
+  echo 'ESLint Check Failed.\
+   Make the required changes listed above, add changes and try to commit again.'
+  false; 
+)
+
+echo 'Running check for typescript type'
+
+# Check tsconfig standards
+npm run check-types ||
+(
+    echo 'Typescript Type Check Failed.\
+    Are you seriously trying to write that? Make the changes required above.'
+    false;
+)

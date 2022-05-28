@@ -1,9 +1,10 @@
 import { useEffect } from "react";
+import type { ChangeEvent } from "react";
+
 interface InputsProps {
 	label: string;
 	value: number;
-	// eslint-disable-next-line
-	setValue: (e: any) => void;
+	setValue: (num: number) => void;
 	setError: (bool: boolean) => void;
 }
 
@@ -35,7 +36,9 @@ const Inputs: React.FC<InputsProps> = (props) => {
 			</label>
 			<input
 				value={value}
-				onChange={(e) => setValue(e.target.value)}
+				onChange={(e: ChangeEvent<HTMLInputElement>) =>
+					setValue(e.target.value as unknown as number)
+				}
 				className={`w-full h-10 p-2 font-bold bg-gray rounded-xl focus:ring-lightblue focus:outline-none ${
 					value > 59 || value < 1 ? "ring-0 border-4 border-red-300 " : " focus:ring-4 "
 				} `}

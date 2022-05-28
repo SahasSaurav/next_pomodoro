@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { TimerContext } from "@context/TimerContext";
 
+import type { MouseEvent } from "react";
 import type { TimerContextType } from "@state/timerType";
 
 const PomodoroMenu = () => {
@@ -12,8 +13,9 @@ const PomodoroMenu = () => {
 				return (
 					<button
 						key={item}
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						onClick={(e: any) => toggleFilterMode(e.target.dataset.item)}
+						onClick={(e: MouseEvent<HTMLButtonElement>) =>
+							toggleFilterMode(e.currentTarget.dataset.item as unknown as string)
+						}
 						data-item={item.split("_").join("")}
 						aria-label={`click to go ${item} section`}
 						className={`py-2 px-4 text-sm font-bold transition-colors ease-in-out duration-300 rounded-full focus:outline-none focus:ring-4 ring-lightblue ring-opacity-60 ${

@@ -1,11 +1,12 @@
 import { useState, useContext } from "react";
 
-import InputErrorMsg from "./InputErrorMsg";
 import Inputs from "./Inputs";
+import InputErrorMsg from "./InputErrorMsg";
 
 import { TimerContext } from "@context/TimerContext";
 import { ThemeContext } from "@context/ThemeContext";
 
+import type { MouseEvent } from "react";
 import type { ThemeContextType } from "@state/themeType";
 import type { TimerContextType } from "@state/timerType";
 
@@ -61,8 +62,9 @@ const SettingForm = () => {
 							return (
 								<button
 									key={font}
-									// eslint-disable-next-line
-									onClick={(e: any) => setSelectedFont(e.target.dataset?.font)}
+									onClick={(e: MouseEvent<HTMLButtonElement>) =>
+										setSelectedFont(e.currentTarget.dataset.font as unknown as string)
+									}
 									className={`flex items-center justify-center w-8 h-8 text-sm rounded-full ring-0 ring-gray ring-offset-2 hover:ring-2 font-kumbh-sans font-bold focus:outline-none ${
 										selectedFont === font ? "text-gray bg-darkblue" : "bg-gray text-darkblue"
 									}`}
